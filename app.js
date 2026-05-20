@@ -360,6 +360,7 @@ function clearProfile() {
   profile = null;
   localStorage.removeItem('kismet-profile');
   updateUI();
+  showDashboard();
 }
 
 function setLanguage(lang) {

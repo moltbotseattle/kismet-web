@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kismet — Vedic Astrology</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
+      background: #FFFFFF;
+      color: #1D1D1F;
+      line-height: 1.47059;
+      font-weight: 400;
+      letter-spacing: -0.022em;
+      min-height: 100vh;
+    }
+    
+    /* Apple-style container */
+    .container { 
+      max-width: 980px; 
+      margin: 0 auto; 
+      padding: 0 20px;
+    }
+    
+    /* Navigation */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 0;
+      background: rgba(255,255,255,0.8);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-logo {
+      font-size: 22px;
+      font-weight: 600;
+      color: #1D1D1F;
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+    .nav-links {
+      display: flex;
+      gap: 32px;
+    }
+    .nav-links a {
+      font-size: 12px;
+      color: #86868B;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .nav-links a:hover { color: #1D1D1F; }
+    .nav-links a.active { color: #1D1D1F; }
+    
+    .lang-toggle-mini {
+      display: flex;
+      background: #F5F5F7;
+      border-radius: 6px;
+      padding: 2px;
+      margin-left: 8px;
+    }
+    .lang-toggle-mini button {
+      padding: 4px 8px;
+      font-size: 11px;
+      border: none;
+      border-radius: 4px;
+      background: transparent;
+      cursor: pointer;
+      color: #86868B;
+      transition: all 0.2s;
+    }
+    .lang-toggle-mini button.active {
+      background: #1D1D1F;
+      color: #FFFFFF;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+    }
+    
+    /* Typography */
+    h1 {
+      font-size: 56px;
+      font-weight: 700;
+      line-height: 1.07143;
+      letter-spacing: -0.005em;
+      color: #1D1D1F;
+    }
+    h2 {
+      font-size: 32px;
+      font-weight: 600;
+      line-height: 1.125;
+      letter-spacing: -0.012em;
+      color: #1D1D1F;
+      margin-bottom: 20px;
+    }
+    h3 {
+      font-size: 24px;
+      font-weight: 600;
+      color: #1D1D1F;
+    }
+    p {
+      font-size: 19px;
+      line-height: 1.4211;
+      color: #86868B;
+    }
+    .eyebrow {
+      font-size: 12px;
+      font-weight: 600;
+      color: #86868B;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    
+    /* Hero */
+    .hero {
+      text-align: center;
+      padding: 80px 0 60px;
+    }
+    .hero p {
+      font-size: 21px;
+      line-height: 1.381;
+      max-width: 600px;
+      margin: 16px auto 0;
+    }
+    
+    /* Cards Grid */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      margin-top: 40px;
+    }
+    .card {
+      background: #F5F5F7;
+      border-radius: 20px;
+      padding: 30px;
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+    }
+    .card h3 { margin-bottom: 8px; }
+    .card p { font-size: 14px; }
+    
+    /* Form */
+    .form-section {
+      background: #F5F5F7;
+      border-radius: 20px;
+      padding: 40px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .form-group {
+      margin-bottom: 24px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: #86868B;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 14px 16px;
+      font-size: 17px;
+      border: 1px solid #D2D2D7;
+      border-radius: 10px;
+      background: #FFFFFF;
+      transition: all 0.2s;
+    }
+    .form-group input:focus {
+      outline: none;
+      border-color: #007AFF;
+      box-shadow: 0 0 0 3px rgba(0,122,255,0.1);
+    }
+    
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 24px;
+      font-size: 17px;
+      font-weight: 500;
+      border-radius: 980px;
+      cursor: pointer;
+      transition: all 0.3s;
+      border: none;
+    }
+    .btn-primary {
+      background: #007AFF;
+      color: #FFFFFF;
+    }
+    .btn-primary:hover { background: #0077ED; }
+    .btn-full { width: 100%; }
+    .btn-outline {
+      background: transparent;
+      border: 1px solid #D2D2D7;
+      color: #1D1D1F;
+    }
+    .btn-outline:hover { background: #F5F5F7; }
+    
+    
+    
+    /* Section */
+    .section {
+      padding: 60px 0;
+      border-top: 1px solid #E5E5E5;
+    }
+    
+    /* Data List */
+    .data-list {
+      background: #F5F5F7;
+      border-radius: 16px;
+      padding: 24px;
+    }
+    .data-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 12px 0;
+      border-bottom: 1px solid #E5E5E5;
+    }
+    .data-row:last-child { border: none; }
+    .data-label { color: #86868B; font-size: 14px; }
+    .data-value { color: #1D1D1F; font-size: 14px; }
+    
+    /* Reading Content */
+    .reading-content {
+      background: #F5F5F7;
+      border-radius: 20px;
+      padding: 40px;
+      margin: 30px 0;
+      font-size: 17px;
+      line-height: 1.7;
+      color: #1D1D1F;
+      white-space: pre-line;
+    }
+    
+    /* Planet List */
+    .planet-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 16px;
+      margin-top: 30px;
+    }
+    .planet-item {
+      background: #F5F5F7;
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+    }
+    .planet-name { font-weight: 600; font-size: 15px; margin-bottom: 4px; }
+    .planet-meta { font-size: 12px; color: #86868B; }
+    
+    /* Back link */
+    .back-link {
+      display: inline-block;
+      font-size: 14px;
+      color: #007AFF;
+      text-decoration: none;
+      margin-bottom: 20px;
+      cursor: pointer;
+    }
+    .back-link:hover { text-decoration: underline; }
+    
+    /* Hidden */
+    .hidden { display: none !important; }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      h1 { font-size: 40px; }
+      .cards-grid { grid-template-columns: 1fr; }
+      .form-section { padding: 24px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Navigation -->
+    <nav>
+      <span onclick="showDashboard(); return false;" class="nav-logo" style="cursor:pointer;">Kismet</span>
+      <div class="nav-links">
+        <span onclick="showDashboard(); return false;" id="nav-dashboard" style="cursor:pointer;">Dashboard</span>
+        <span onclick="showProfile(); return false;" id="nav-profile" style="cursor:pointer;">Profile</span>
+        <div class="lang-toggle-mini">
+          <button id="nav-lang-en" onclick="handleLanguageChange('en')">EN</button>
+          <button id="nav-lang-zh" onclick="handleLanguageChange('zh')">中文</button>
+        </div>
+      </div>
+    </nav>
+    
+    <!-- Dashboard -->
+    <div id="dashboard">
+      <div class="hero">
+        <p class="eyebrow" id="hero-eyebrow">Vedic Astrology</p>
+        <h1 id="greeting">Hello, Seeker</h1>
+        <p id="hero-desc">Discover your cosmic blueprint through ancient Vedic wisdom.</p>
+      </div>
+      
+      <!-- Onboarding -->
+      <div id="onboarding" class="hidden">
+        <div class="form-section">
+          <h2 id="form-title">Calculate Your Alignment</h2>
+          <p id="form-subtitle" style="margin-bottom: 30px; font-size: 15px;">Enter your birth details for a personalized reading.</p>
+          
+          <div class="form-group">
+            <label id="label-name">Full Name</label>
+            <input type="text" id="fullName" placeholder="John">
+          </div>
+          <div class="form-group">
+            <label id="label-date">Date of Birth</label>
+            <input type="text" id="dateOfBirth" placeholder="1990-01-01">
+          </div>
+          <div class="form-group">
+            <label id="label-time">Time of Birth</label>
+            <input type="text" id="timeOfBirth" placeholder="20:00">
+          </div>
+          <div class="form-group">
+            <label id="label-place">Place of Birth</label>
+            <input type="text" id="birthPlace" placeholder="New York, NY, USA">
+          </div>
+          
+          <button class="btn btn-primary btn-full" onclick="saveProfile()" id="btn-calculate">Calculate Alignment</button>
+        </div>
+      </div>
+      
+      <!-- Readings -->
+      <div id="readings" class="hidden">
+        
+        
+        <div class="cards-grid">
+          <div class="card" onclick="showReading('summary')">
+            <h3 id="card-summary">Executive Summary</h3>
+            <p id="card-summary-desc">Your core life theme</p>
+          </div>
+          <div class="card" onclick="showReading('yearly')">
+            <h3 id="card-yearly">Yearly Forecast</h3>
+            <p id="card-yearly-desc">The year ahead</p>
+          </div>
+          <div class="card" onclick="showReading('monthly')">
+            <h3 id="card-monthly">Monthly Guide</h3>
+            <p id="card-monthly-desc">This month's focus</p>
+          </div>
+          <div class="card" onclick="showReading('daily')">
+            <h3 id="card-daily">Daily Insight</h3>
+            <p id="card-daily-desc">Today's action</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Reading Detail -->
+    <div id="readingDetail" class="hidden">
+      <a class="back-link" onclick="showDashboard()">← Back to Dashboard</a>
+      <p class="eyebrow" id="reading-eyebrow">Reading</p>
+      <h1 id="readingTitle">Executive Summary</h1>
+      
+      <div class="reading-content" id="readingBody"></div>
+      
+      <h2 id="matrix-title">Planetary Positions</h2>
+      <div class="planet-list" id="planetList"></div>
+    </div>
+    
+    <!-- Profile -->
+    <div id="profile" class="hidden">
+      <div class="section" style="border-top: none;">
+        <h2 id="profile-title">Profile</h2>
+        
+        <h3 id="birth-profile-title" style="margin-bottom: 16px;">Birth Profile</h3>
+        <div id="profileData">
+          <div class="data-list">
+            <p style="text-align: center; color: #86868B; padding: 20px;">No profile saved</p>
+          </div>
+        </div>
+        <button class="btn btn-outline btn-full" onclick="clearProfile()" id="btn-clear" style="margin-top: 16px;">Clear Profile</button>
+      </div>
+      
+    </div>
+    
+    
+  </div>
+  
+  <script src="app.js"></script>
+</body>
+</html>
